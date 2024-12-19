@@ -11,6 +11,7 @@
         <th>id</th>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
         <td>{{ $user['id']}}</td>
         <td>{{ $user['name']}}</td>
         <td>{{ $user['surname']}}</td>
+        <td><a href="/user/{{ $user['id']}}">Editar</a></td>
       </tr>
       @endforeach
     </tbody>

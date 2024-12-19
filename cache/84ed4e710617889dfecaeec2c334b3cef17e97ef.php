@@ -9,6 +9,7 @@
         <th>id</th>
         <th>Nombre</th>
         <th>Apellido</th>
+        <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
         <td><?php echo e($user['id']); ?></td>
         <td><?php echo e($user['name']); ?></td>
         <td><?php echo e($user['surname']); ?></td>
+        <td><a href="/user/<?php echo e($user['id']); ?>">Editar</a></td>
       </tr>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>

@@ -2,30 +2,22 @@
 
 namespace Dsw\Tema6\Controllers;
 
+use Dsw\Tema6\Models\User;
+
 class UserController extends Controller{
 
   public function index()  {
-    $users = [
-      ['id'=>'1','name'=>'Pepe', 'surname'=> 'Pepon'],
-      ['id'=>'2','name'=>'Ana', 'surname'=> 'Anon'],
-      ['id'=>'3','name'=>'Julia', 'surname'=> 'Julianon'],
-      ['id'=>'4','name'=>'Roberto', 'surname'=> 'Roberton']
-
-    ];
+    $users = User::all();
     // $users =[];
     echo $this->blade->view()->make('user.index', compact('users'))->render();
   }
 
   public function show($param) {
     $id = $param['id'];
-    $user =[
-      'id' => $id,
-      'name' => 'Pepe',
-      'surname' => 'Pepon'
-    ];
+    $user = User::get($id);
     $data = [
       'user' => $user,
-      'title' => 'Usuario'
+      'title' => 'Usuario: '.$id
     ];
     echo $this->blade->view()->make('user.show', $data)->render();
   }

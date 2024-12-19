@@ -3,7 +3,11 @@
 @section('title', $title)
 
 @section('content')
-  <h2>Un usuario {{ $client['id'] }}</h2>
-  <p>{{ $client['id'] }}</p>
-  <p>{{ $client['name'] }}</p>
+  @if ($user)
+  <h2>Un usuario {{ $user['id'] }}</h2>
+  <p>{{ $user['id'] }}</p>
+  <p>{{ $user['name'] }}</p>
+  @else
+  <h2>Usuario no encontrado</h2>
+  @endif
 @endsection
