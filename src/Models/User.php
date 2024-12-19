@@ -2,15 +2,29 @@
 
 namespace Dsw\Tema6\Models;
 
+use PDO;
+
 class User{
-  static private $users =[
-  ['id'=>'1','name'=>'Pepe', 'surname'=> 'Pepon'],
-  ['id'=>'2','name'=>'Ana', 'surname'=> 'Anon'],
-  ['id'=>'3','name'=>'Julia', 'surname'=> 'Julianon'],
-  ['id'=>'4','name'=>'Roberto', 'surname'=> 'Roberton']];
+
+  
+  static private $link;
+
+  public function __construct()
+  {
+    require '../Database/connection.php';
+  }
+
+  // static private $users =[
+  // ['id'=>'1','name'=>'Pepe', 'surname'=> 'Pepon'],
+  // ['id'=>'2','name'=>'Ana', 'surname'=> 'Anon'],
+  // ['id'=>'3','name'=>'Julia', 'surname'=> 'Julianon'],
+  // ['id'=>'4','name'=>'Roberto', 'surname'=> 'Roberton']];
 
   public static function all(){
-    return self::$users;
+    $stmt=self::$link->prepare('SELECT * FROM users');
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $users;
   }
 
   public static function get($id){
