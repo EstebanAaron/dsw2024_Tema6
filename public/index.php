@@ -1,45 +1,41 @@
 <?php
 error_reporting(E_ALL ^ E_DEPRECATED);
+
 use Philo\Blade\Blade;
 
 require '../vendor/autoload.php';
 
 $router = new AltoRouter();
-$views= '../src/views';
-$cache= '../cache';
-$blade = new Blade($views,$cache);
+
+$views = '../src/views';
+$cache = '../cache';
+$blade = new Blade($views, $cache);
 
 // map homepage
-$router->map('GET', '/',function() use($blade) {
-    //  require __DIR__ . '/../src/views/index.php';
-    echo $blade->view()->make('index')->render();
+$router->map('GET', '/', function () use ($blade) {
+  // require __DIR__ . '/../src/views/index.php';
+  //global $blade;
+  echo $blade->view()->make('index')->render();
 });
 
-
-$router->map('GET', '/user','UserController#index');
-$router->map('GET', '/user/[i:id]','UserController#show', "user-detail.php");
-// dynamic named route
-// $router->map('GET|POST', '/users/[i:id]/', function($id) {
-//   // $user = .....
-//   require __DIR__ . '/views/user/details.php';
-// }, 'user-details');
+$router->map('GET', '/user', 'UserController#index', 'index');
+$router->map('GET', '/user/[i:id]', 'UserController#show', 'user-show');
+$router->map('GET', '/user/create', 'UserController#create', 'user-create');
 
 // echo URL to user-details page for ID 5
-//echo $router->generate('user-details', ['id' => 5]); // Output: "/users/5"
+// echo $router->generate('user-details', ['id' => 5]); // Output: "/users/5"
 
 $match = $router->match();
-
-if( is_array($match) ) {
-  if (is_callable( $match['target'] )) {
-    call_user_func_array( $match['target'], $match['params'] );
-  } else{
+if (is_array($match)) {
+  if (is_callable($match['target'])) {
+    call_user_func_array($match['target'], $match['params']);
+  } else {
     $target = $match['target'];
-    list($controllerName,$action)=explode("#",$target);
+    list($controllerName, $action) = explode("#", $target);
     $controller = new ("Dsw\\Tema6\\Controllers\\" . $controllerName)();
     $controller->$action($match['params']);
   }
-  
-  } else {
+} else {
   // no route was matched
-  header( $_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
-  }
+  header($_SERVER["SERVER_PROTOCOL"] . ' 404 Not Found');
+}

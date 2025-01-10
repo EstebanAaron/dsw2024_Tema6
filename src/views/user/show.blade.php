@@ -3,11 +3,12 @@
 @section('title', $title)
 
 @section('content')
-  @if ($user)
-  <h2>Un usuario {{ $user['id'] }}</h2>
-  <p>{{ $user['id'] }}</p>
-  <p>{{ $user['name'] }}</p>
-  @else
-  <h2>Usuario no encontrado</h2>
-  @endif
+@if ($user)
+<h2>Un usuario</h2>
+<p>{{ $user->getId() }}</p>
+<h3>{{ $user->getName() }} - {{ $user->getSurname() }}</h3>
+<p>{{ $user->getEmail() }}</p>
+@else
+<h2>Usuario no encontrado</h2>
+@endif
 @endsection
