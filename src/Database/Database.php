@@ -8,7 +8,7 @@ use PDOException;
 class Database
 {
   private $host = 'localhost';
-  private $db_name = 'capasdb';
+  private $db_name = 'capasbd';
   private $user = 'root';
   private $password = '';
   private $conn;
