@@ -24,25 +24,42 @@ class UserController extends Controller{
     ];
     echo $this->blade->view()->make('user.show', $data)->render();
   }
+
   public function create() {
-    echo $this->blade->view()->make('user.create');
+    echo $this->blade->view()->make('user.create')->render();
   }
 
-  public function post(){
-    // echo "estoy en el metodo post";
+  public function post() {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $email = $_POST['email'];
-    printf('Los datos son %s, %s, %s', $name,$surname,$email);
     $userDAO = new UserImplement();
-    $userDAO->create($name,$surname,$email);
-    // echo "se hizo ";
+    $userDAO->create($name, $surname, $email);
     $this->index();
   }
-  
+
   public function delete($param) {
-    $id =$param['id'];
-    echo "Eliminando el usuario con id : ".$id;
-    
+    $id = $param['id'];
+    $userDAO = new UserImplement();
+    $userDAO->delete($id);
+    $this->index();
+  }
+
+  public function edit($param) {
+    $id = $param['id'];
+    $userDAO = new UserImplement();
+    $user = $userDAO->findById($id);
+    echo $this->blade->view()->make('user.edit', compact("user"))->render();
+  }
+
+  public function put($param) {
+    $id = $param['id'];
+    var_dump($_POST);
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $userDAO = new UserImplement();
+    $userDAO->update($id, $name, $surname, $email);
+    $this->index();
   }
 }
