@@ -17,6 +17,10 @@
       </form>      
     </div>
   </p>
+  <h3>Grupos</h3>
+  @foreach($user->group() as $group )
+    <li>{{ $group->getId() }} - {{ $group->getName() }}</li>
+  @endforeach
 @else
   <h2>Usuario no encontrado</h2>
 @endif

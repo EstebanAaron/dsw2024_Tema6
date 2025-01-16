@@ -69,4 +69,19 @@ class GroupImplement {
     $stmt->bindParam(':name',$name);
     $stmt->execute();
   }
+  public function finGroupByUserId(int $id) {
+    $query = "SELECT * FROM `groups` inner join groups_users on  groups.id= groups_users.id_group WHERE groups_users.id_user= :id_user";
+    $stmt = $this->db->getConnection()->prepare($query);
+    $stmt->bindParam(':id_user', $id);
+    $stmt->execute();
+    $groups =[];
+    while ($groupRecord=$stmt->fetch(PDO::FETCH_ASSOC)) {
+      $group = new Group (
+        $groupRecord['id'],
+        $groupRecord['name'],
+      );
+      $groups[] = $group;
+    }
+    return $groups;
+  }
 }

@@ -14,9 +14,13 @@
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="eliminiar">
       </form>
-      <a href="/group/{{ $group->getId() }}/insert"><button>Insertart Usuario</button></a>      
+      <a href="/group/{{ $group->getId() }}/users"><button>Modificar Usuario</button></a>      
     </div>
   </p>
+  <h3>Usuarios</h3>
+  @foreach($group->user() as $user )
+    <li>{{ $user->getName() }}</li>
+  @endforeach
 @else
   <h2>grupo no encontrado</h2>
 @endif

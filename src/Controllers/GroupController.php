@@ -3,6 +3,7 @@
 namespace Dsw\Tema6\Controllers;
 
 use Dsw\Tema6\Dao\GroupImplement;
+use Dsw\Tema6\Dao\UserImplement;
 use Dsw\Tema6\Models\Group;
 
 class GroupController extends Controller{
@@ -60,5 +61,25 @@ class GroupController extends Controller{
     $groupDAO = new GroupImplement();
     $groupDAO->update($id, $name);
     $this->index();
+  }
+
+  public function users($param){
+    $id = $param['id'];
+    $groupDAO = new GroupImplement();
+    $group = $groupDAO->findById($id);
+    $userDAO = new UserImplement();
+    $users = $userDAO->findAll();
+
+    $usersBelong = $group->user();
+    $usersBelongId = array_map(
+      fn($user)=> $user->getId(), $usersBelong
+    );
+    echo $this->blade->view()->make('group.users', compact("group","users","usersBelongId"))->render();
+  }
+
+  public function postusers($param){
+    $id_group = $param['id'];
+    echo $id_group;
+    var_dump($_POST);
   }
 }
